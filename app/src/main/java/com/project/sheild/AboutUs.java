@@ -34,9 +34,9 @@ public class AboutUs extends AppCompatActivity {
     }
     public void composeEmail() {
         String subject="Contacting for SHEild - Women Safety Application";
-        String mailto = "mailto:adityakonda04@gmail.com" +
-                "?cc="+"07rashimall@gmail.com"+
-                "&bcc="+"anmolgupta.2021@kccemsr.edu.in"+
+        String mailto = "mailto:viggu3110@gmail.com" +
+                "?cc="+"riyac453@gmail.com"+
+                "&bcc="+"bhatshivam2004@gmail.com"+
                 "&subject=" + Uri.encode(subject);
 
 
