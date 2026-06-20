@@ -90,15 +90,14 @@ Designed for decompression and mental wellness:
 
 <div align="center">
 
-### **Hey there 👋, I'm Aditya!**
+### **Hey there 👋, I'm Shivam!**
 
-[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-0e76a8?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/aditya-adi-konda/)
-[![Twitter Badge](https://img.shields.io/badge/-Twitter-00acee?style=flat-square&logo=Twitter&logoColor=white)](https://twitter.com/AdityaKonda7)
-[![Instagram Badge](https://img.shields.io/badge/-Instagram-e4405f?style=flat-square&logo=Instagram&logoColor=white)](https://www.instagram.com/konda_aditya/)
+[![GitHub Badge](https://img.shields.io/badge/-GitHub-1817C7?style=flat-square&logo=GitHub&logoColor=white)](https://github.com/ShivamB23)
+[![Email Badge](https://img.shields.io/badge/-Email-D14836?style=flat-square&logo=Gmail&logoColor=white)](mailto:bhatshivam2004@gmail.com)
 
 <img align="right" height="200" width="300" style="border-radius: 8px;" alt="Coding" src="https://raw.githubusercontent.com/iampavangandhi/iampavangandhi/master/gifs/coder.gif" />
 
-I’m a **2025 IT Graduate** passionate about **DevOps, Cloud, and Software Development** 🚀.  
+I’m a **2026 IT Graduate** passionate about **DevOps, Cloud, and Software Development** 🚀.  
 I love bridging the gap between development and operations—automating CI/CD workflows and deploying secure, scalable applications.
 
 </div>
@@ -120,8 +119,8 @@ DevOps:      Docker | Kubernetes | AWS Cloud | Jenkins CI-CD
 <details open>
   <summary><b>⚡ Developer Stats</b></summary>
   <br />
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=adityakonda6&show_icons=true&hide_border=true&count_private=true&include_all_commits=true&theme=tokyonight" alt="Aditya's GitHub Stats" />
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=adityakonda6&show_icons=true&hide_border=true&layout=compact&langs_count=8&theme=tokyonight" alt="Top Languages" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=ShivamB23&show_icons=true&hide_border=true&count_private=true&include_all_commits=true&theme=tokyonight" alt="Shivam's GitHub Stats" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=ShivamB23&show_icons=true&hide_border=true&layout=compact&langs_count=8&theme=tokyonight" alt="Top Languages" />
 </details>
 
 <br />
@@ -129,15 +128,7 @@ DevOps:      Docker | Kubernetes | AWS Cloud | Jenkins CI-CD
 <details open>
   <summary><b>🔥 Activity Streaks</b></summary>
   <br />
-  <img height="180em" src="https://github-readme-streak-stats.herokuapp.com/?user=adityakonda6&hide_border=true&theme=tokyonight" alt="GitHub Streaks" />
-</details>
-
-<br />
-
-<details>
-  <summary><b>☄️ LeetCode Rating</b></summary>
-  <br />
-  <img src="https://leetcard.jacoblin.cool/adityakonda04?theme=tokyonight&font=Coda%20Caption&ext=heatmap" alt="LeetCode Dashboard" />
+  <img height="180em" src="https://github-readme-streak-stats.herokuapp.com/?user=ShivamB23&hide_border=true&theme=tokyonight" alt="GitHub Streaks" />
 </details>
 
 </div>
@@ -146,7 +137,7 @@ DevOps:      Docker | Kubernetes | AWS Cloud | Jenkins CI-CD
 
 <div align="center">
 
-💬 Always open to collaborations, DevOps projects, and automation challenges. Feel free to reach out via **adityakonda04@gmail.com** or check out my [Portfolio Website](https://adityakonda04.vercel.app/).
+💬 Always open to collaborations, DevOps projects, and automation challenges. Feel free to reach out via **bhatshivam2004@gmail.com**.
 
 ⭐️ *Show some support by starring this repository if you find it helpful!* ⭐️
 
