@@ -1,44 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/nonameback"
+    android:orientation="vertical"
+    android:background="@drawable/solid_background"
+    android:padding="16dp"
     tools:context=".Bedroom">
 
-
-    <androidx.cardview.widget.CardView
+    <!-- Header -->
+    <RelativeLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="5dp"
-        app:cardCornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="24dp">
 
-        <ScrollView
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_chevron_right"
+            android:rotation="180"
+            app:tint="@color/theme_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bedroom Instructions"
+            android:textColor="@color/theme_red"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:inputType="textMultiLine"
-                android:paddingLeft="5dp"
-                android:paddingRight="2dp"
-                android:paddingBottom="15dp"
-                android:text="Possibility of a Hidden Camera in bedroom is almost 15%. \n\nScan for devices listed below: \n\n1. Smoke Detector - \nPrecaution: Apply sticker/tape over the viewable part of the detector. \n\n2. Air Conditioner - \nPrecaution: Use fan and turn off the AC if possible. Turn rotating blades off. \n\n3. Television - \nPrecaution: Turn off main supply, keep objects in front of lens looking part of the TV. \n\n4. Night Lamp - \nPrecaution: Keep it off or change it's position. \n\n 5.Flower Pot - \nPrecaution: Change position to least viewable area. \n\n6. Coffee Maker - \nPrecaution: Unplug it and put it inside cupboard. \n\n Finally Do NOT forget to turn off the lights."
-                android:textColor="#000000"
-                android:textSize="14dp" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_bg_solid_black"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        </ScrollView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Possibility of a Hidden Camera in bedroom is almost 15%. \n\nScan for devices listed below: \n\n1. Smoke Detector - \nPrecaution: Apply sticker/tape over the viewable part of the detector. \n\n2. Air Conditioner - \nPrecaution: Use fan and turn off the AC if possible. Turn rotating blades off. \n\n3. Television - \nPrecaution: Turn off main supply, keep objects in front of lens looking part of the TV. \n\n4. Night Lamp - \nPrecaution: Keep it off or change it's position. \n\n5. Flower Pot - \nPrecaution: Change position to least viewable area. \n\n6. Coffee Maker - \nPrecaution: Unplug it and put it inside cupboard. \n\nFinally Do NOT forget to turn off the lights."
+                    android:textColor="@color/theme_white"
+                    android:textSize="16sp"
+                    android:lineSpacingMultiplier="1.2" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 
-    </androidx.cardview.widget.CardView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

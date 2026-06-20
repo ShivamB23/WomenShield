@@ -1,43 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/nonameback"
+    android:orientation="vertical"
+    android:background="@drawable/solid_background"
+    android:padding="16dp"
     tools:context=".Bathroom">
 
-
-    <androidx.cardview.widget.CardView
+    <!-- Header -->
+    <RelativeLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="5dp"
-        android:orientation="vertical"
-        app:cardCornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="24dp">
 
-        <ScrollView
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_chevron_right"
+            android:rotation="180"
+            app:tint="@color/theme_white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bathroom Instructions"
+            android:textColor="@color/theme_red"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardElevation="0dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:inputType="textMultiLine"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:paddingBottom="15dp"
-                android:text="Possibility of a Hidden Camera in bathroom is almost 12%. \n\nScan for devices listed below: \n\n1. Water Heater - \nPrecaution: Turn it off before taking bath. \n\n2. Mirror - \nPrecaution: Touch the mirror. Do you feel any gap between your finger and its reflection? if NO, there could be a hidden camera behind the mirror glass. \n\n3. Ceiling/Smoke Detector - \nPrecaution: Apply sticker/tape over the viewable part of the detector. \n\n4. Lamps or Bulbs - \nPrecaution: You cannot do much about that, but still use curtains whenever possible."
-                android:textColor="#000000"
-                android:textSize="14dp" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_bg_solid_black"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-        </ScrollView>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Possibility of a Hidden Camera in bathroom is almost 12%. \n\nScan for devices listed below: \n\n1. Water Heater - \nPrecaution: Turn it off before taking bath. \n\n2. Mirror - \nPrecaution: Touch the mirror. Do you feel any gap between your finger and its reflection? if NO, there could be a hidden camera behind the mirror glass. \n\n3. Ceiling/Smoke Detector - \nPrecaution: Apply sticker/tape over the viewable part of the detector. \n\n4. Lamps or Bulbs - \nPrecaution: You cannot do much about that, but still use curtains whenever possible."
+                    android:textColor="@color/theme_white"
+                    android:textSize="16sp"
+                    android:lineSpacingMultiplier="1.2" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

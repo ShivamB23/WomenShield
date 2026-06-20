@@ -131,35 +131,35 @@
             android:exported="false"
             android:label="Manual Detection"
             android:parentActivityName="com.project.sheild.ChoosenActivity"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.Outside"
             android:exported="false"
             android:label="Outside Instructions"
             android:parentActivityName="com.project.sheild.MagnoInst"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.ChangingRoom"
             android:exported="false"
             android:label="ChangingRoom Instructions"
             android:parentActivityName="com.project.sheild.MagnoInst"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.Bedroom"
             android:exported="false"
             android:label="Bedroom Instructions"
             android:parentActivityName="com.project.sheild.MagnoInst"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.Bathroom"
             android:exported="false"
             android:label="Bathroom Instructions"
             android:parentActivityName="com.project.sheild.MagnoInst"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.ChoosenActivity"
