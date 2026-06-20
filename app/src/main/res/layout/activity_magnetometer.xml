@@ -1,201 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/l"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/nonameback"
-    android:orientation="vertical"
-    tools:context="com.project.sheild.MainActivity1">
+    android:background="@drawable/solid_background"
+    android:padding="16dp"
+    tools:context="com.project.sheild.Magnetometer">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="8"
-    android:orientation="vertical"
-    >
-    <com.project.sheild.SpeedometerView
-        android:id="@+id/speedometer"
+    <!-- Header -->
+    <RelativeLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:layout_marginTop="0dp"
-        android:layout_weight="14"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="9dp" />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_weight="3"
-        android:innerRadius="0dp"
-        android:shape="ring"
-        app:cardCornerRadius="75dp">
+        android:layout_marginBottom="16dp"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_chevron_right"
+            android:rotation="180"
+            app:tint="@color/theme_white" />
 
         <TextView
-            android:id="@+id/value"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
-            android:text="textview"
-            android:textColor="#000000"
-            android:textSize="25dp" />
-    </androidx.cardview.widget.CardView>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spy Camera Detector"
+            android:textColor="@color/theme_red"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
-    <LinearLayout
+    <!-- Main Content Container -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="3">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-
-            app:cardCornerRadius="50dp">
-
-            <TextView
-                android:id="@+id/show_conditions"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:text="textview"
-                android:textColor="#000000"
-                android:textSize="20dp" />
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginRight="6dp"
-        android:layout_weight="3"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="6dp">
-
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_layout"
+        android:layout_above="@+id/magnetoInst"
+        android:layout_marginBottom="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <!-- Speedometer -->
+            <com.project.sheild.SpeedometerView
+                android:id="@+id/speedometer"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_gravity="center"
+                android:layout_margin="8dp" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+            <!-- Current Value Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardElevation="0dp">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="X"
-                    android:textColor="#000000"
-                    android:textSize="25dp" />
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_bg_solid_white"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center">
 
-                <TextView
-                    android:id="@+id/x_cor"
+                    <TextView
+                        android:id="@+id/value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0 μT"
+                        android:textColor="@color/theme_black"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Condition Message Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardElevation="0dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="#000000"
-                    android:textSize="20dp" />
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_bg_solid_white"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center">
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/show_conditions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No electronic device detected."
+                        android:textColor="@color/theme_black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
+            <!-- X, Y, Z Coordinates Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardElevation="0dp">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Y"
-                    android:textColor="#000000"
-                    android:textSize="25dp" />
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/card_bg_solid_black"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:gravity="center">
 
-                <TextView
-                    android:id="@+id/y_cor"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="#000000"
-                    android:textSize="20dp" />
-            </LinearLayout>
+                    <!-- X Column -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="X"
+                            android:textColor="@color/theme_white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Z"
-                    android:textColor="#000000"
-                    android:textSize="25dp" />
+                        <TextView
+                            android:id="@+id/x_cor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:padding="4dp" />
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/z_cor"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="0"
-                    android:textColor="#000000"
-                    android:textSize="20dp" />
-            </LinearLayout>
+                    <!-- Y Column -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Y"
+                            android:textColor="@color/theme_white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/y_cor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:padding="4dp" />
+                    </LinearLayout>
+
+                    <!-- Z Column -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Z"
+                            android:textColor="@color/theme_white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/z_cor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            android:padding="4dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 
-    <!--  app:srcCompat="@drawable/bitcoin" -->
-
-</LinearLayout>
-
+    <!-- Floating Action Button for Instructions -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/magnetoInst"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="end"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop = "8dp"
-        android:background="@color/colorAccent"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="@drawable/ic_about_newww"
-        app:backgroundTint="@color/colorAccent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_about_newww"
+        app:backgroundTint="@color/theme_red"
+        app:tint="@color/theme_white"
         app:elevation="6dp"
-        tools:ignore="SpeakableTextPresentCheck"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-        />
-
-</LinearLayout>
+</RelativeLayout>

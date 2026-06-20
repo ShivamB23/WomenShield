@@ -14,6 +14,8 @@
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -33,6 +35,7 @@
 
 
     <application
+        android:name="com.project.util.AppController"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -80,7 +83,7 @@
         </activity>
         <activity
             android:name="com.project.sheild.FakeCall"
-
+            android:theme="@style/noActionBar"
             android:label="Fake Call">
         </activity>
         <activity
@@ -98,7 +101,7 @@
             android:exported="false"
             android:label="AboutUs"
             android:parentActivityName="com.project.sheild.MainActivity1"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.MagBtnInst"
@@ -121,7 +124,7 @@
             android:exported="false"
             android:label="Spy Camera Detector"
             android:parentActivityName="com.project.sheild.ChoosenActivity"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.MagnoInst"
@@ -163,14 +166,14 @@
             android:exported="false"
             android:label="Detect Hidden Cameras"
             android:parentActivityName="com.project.sheild.MainActivity1"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.NewsActivity"
             android:exported="false"
             android:label="Women's News"
             android:parentActivityName="com.project.sheild.MainActivity1"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.Instructions"
@@ -189,7 +192,7 @@
             android:exported="false"
             android:label="Emergency Service"
             android:parentActivityName="com.project.sheild.MainActivity1"
-            android:theme="@style/Theme.New" />
+            android:theme="@style/noActionBar" />
 
         <activity
             android:name="com.project.sheild.CurrentLocation"
@@ -204,7 +207,7 @@
             android:exported="false"
             android:label="IoT Tracker"
             android:parentActivityName="com.project.sheild.MainActivity1"
-            android:theme="@style/Theme.New" />        <activity
+            android:theme="@style/noActionBar" />        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/noActionBar"/>
@@ -212,7 +215,9 @@
             android:theme="@style/noActionBar"
             />
 
-        <service android:name="com.project.sheild.ScreenOnOffBackgroundService" />
+        <service
+            android:name="com.project.sheild.ScreenOnOffBackgroundService"
+            android:exported="false" />
 
 
         <service
@@ -224,10 +229,12 @@
         </service>
         <service
             android:name="com.project.sheild.VideoRecordingService"
+            android:exported="false"
             android:foregroundServiceType="camera"/>
 
         <service
             android:name="com.project.util.MyForegroundService"
+            android:exported="false"
             android:foregroundServiceType="location" />
 
         <receiver android:name="com.project.util.NotificationReceiver" android:exported="true">
