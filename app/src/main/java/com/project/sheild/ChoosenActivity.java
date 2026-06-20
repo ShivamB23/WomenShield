@@ -4,6 +4,7 @@ import com.project.womensafety.R;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import android.widget.ImageView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -50,6 +51,11 @@ public class ChoosenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_choosen );
+
+        ImageView btnBack = findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
 
         instruction = findViewById( R.id.inst );
         testing = findViewById(R.id.mag);

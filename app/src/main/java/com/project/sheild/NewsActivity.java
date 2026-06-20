@@ -4,6 +4,7 @@ import com.project.womensafety.R;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.widget.ImageView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,11 @@ public class NewsActivity extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_news );
 
+        ImageView btnBack = findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
+
         getSuperHeroes();
     }
 
@@ -43,8 +49,8 @@ public class NewsActivity extends AppCompatActivity {
         ).enqueue( new Callback<NewsResults>() {
             @Override
             public void onResponse(Call<NewsResults> call, Response<NewsResults> response) {
-                if (response.isSuccessful()) {
-                    ArrayList<News> myitemsList = (ArrayList<News>) response.body().getArticles();
+                if (response.isSuccessful() && response.body() != null && response.body().getArticles() != null) {
+                    ArrayList<News> myitemsList = new ArrayList<>(response.body().getArticles());
 
 
                     recycleview = findViewById( R.id.reclcle_list );
@@ -57,8 +63,9 @@ public class NewsActivity extends AppCompatActivity {
 
                     hideProgressingView();
 
-                    //   hideProgressingView();
-
+                } else {
+                    hideProgressingView();
+                    Toast.makeText(NewsActivity.this, "News is unavailable right now", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -66,7 +73,8 @@ public class NewsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<NewsResults> call, Throwable t) {
-                Toast.makeText( NewsActivity.this, "Unsuccessful ", Toast.LENGTH_SHORT ).show();
+                hideProgressingView();
+                Toast.makeText(NewsActivity.this, "Unable to load news", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -94,6 +102,9 @@ public class NewsActivity extends AppCompatActivity {
 
     // function used to hide progressbar when login process is completed
     public void hideProgressingView() {
+        if (!isProgressShowing || progressView == null) {
+            return;
+        }
         View v = this.findViewById( android.R.id.content ).getRootView();
         // View v = this.findViewById(R.id.view );
         ViewGroup viewGroup = (ViewGroup) v;

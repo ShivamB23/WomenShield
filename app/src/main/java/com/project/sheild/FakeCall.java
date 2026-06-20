@@ -50,6 +50,11 @@ public class FakeCall extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fakecall); // Make sure this matches your layout file
 
+        ImageView btnBack = findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
+
         callerName = findViewById(R.id.caller_name);
         callerNumber = findViewById(R.id.caller_number);
         callerImageView = findViewById(R.id.caller_image_view);

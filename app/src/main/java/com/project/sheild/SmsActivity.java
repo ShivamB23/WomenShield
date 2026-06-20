@@ -1,12 +1,17 @@
 package com.project.sheild;
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +22,8 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.material.textfield.TextInputEditText;
 import com.project.womensafety.R;
 
@@ -37,6 +44,7 @@ import androidx.appcompat.app.AlertDialog;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class SmsActivity extends AppCompatActivity {
@@ -49,10 +57,12 @@ public class SmsActivity extends AppCompatActivity {
 
     // Media Recorder for audio recording
     private MediaRecorder mediaRecorder;
+    private MediaPlayer alarmPlayer;
     private String audioFilePath;
     private boolean isRecording = false;
 
     private static final int PERMISSION_REQUEST_CODE = 200;
+    private static final int SOS_PERMISSION_REQUEST_CODE = 201;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 
@@ -102,6 +112,11 @@ public class SmsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms);
 
+        ImageView btnBack = findViewById(R.id.btn_back);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
+
         txt_msg = findViewById(R.id.txt_sms);
         txt_pnumber1 = findViewById(R.id.txt_phone_number1);
         txt_pnumber2 = findViewById(R.id.txt_phone_number2);
@@ -142,7 +157,10 @@ public class SmsActivity extends AppCompatActivity {
         });
 
         // Stop recording listener
-        stopRecordingButton.setOnClickListener(v -> stopRecording());
+        stopRecordingButton.setOnClickListener(v -> {
+            stopRecording();
+            stopAlarm();
+        });
     }
 
     // Generate a unique file name using a timestamp
@@ -292,18 +310,14 @@ public class SmsActivity extends AppCompatActivity {
 
     // Check if permissions are granted
     private boolean checkPermissions() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
     }
 
     // Request necessary permissions
     private void requestPermissions() {
         ActivityCompat.requestPermissions(this,
                 new String[]{
-                        Manifest.permission.RECORD_AUDIO,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
+                        Manifest.permission.RECORD_AUDIO
                 },
                 PERMISSION_REQUEST_CODE);
     }
@@ -347,7 +361,12 @@ public class SmsActivity extends AppCompatActivity {
     }
 
     public void btn_send(View view) {
-        tryIt();
+        new AlertDialog.Builder(this)
+                .setTitle("Activate emergency SOS?")
+                .setMessage("This starts the alarm and microphone recording, gets GPS location, sends SMS alerts, and calls the primary contact.")
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("Activate SOS", (dialog, which) -> tryIt())
+                .show();
     }
 
     public void tryIt() {
@@ -359,16 +378,50 @@ public class SmsActivity extends AppCompatActivity {
     }
 
     private void requestPermissionsAndCall() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-            makeCall();
-        } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
+        String[] permissions = {
+                Manifest.permission.CALL_PHONE,
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.RECORD_AUDIO
+        };
+        ArrayList<String> missing = new ArrayList<>();
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                missing.add(permission);
+            }
         }
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
-            requestLocationPermissionAndSendMessage();
+        if (missing.isEmpty()) {
+            activateSos();
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 0);
+            ActivityCompat.requestPermissions(this, missing.toArray(new String[0]), SOS_PERMISSION_REQUEST_CODE);
+        }
+    }
+
+    private void activateSos() {
+        saveData();
+        startAlarm();
+        if (!isRecording) {
+            startRecording();
+        }
+        SendLocationMessage();
+        makeCall();
+    }
+
+    private void startAlarm() {
+        if (alarmPlayer == null) {
+            alarmPlayer = MediaPlayer.create(this, R.raw.police_siren);
+            alarmPlayer.setLooping(true);
+        }
+        if (!alarmPlayer.isPlaying()) {
+            alarmPlayer.start();
+        }
+    }
+
+    private void stopAlarm() {
+        if (alarmPlayer != null) {
+            alarmPlayer.stop();
+            alarmPlayer.release();
+            alarmPlayer = null;
         }
     }
 
@@ -395,8 +448,10 @@ public class SmsActivity extends AppCompatActivity {
             return;
         }
 
-        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(task -> {
-            Location location = task.getResult();
+        CancellationTokenSource tokenSource = new CancellationTokenSource();
+        fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, tokenSource.getToken())
+                .addOnCompleteListener(task -> {
+            Location location = task.isSuccessful() ? task.getResult() : null;
             String message = txt_msg.getText().toString().trim();
 
             if (location != null) {
@@ -405,12 +460,35 @@ public class SmsActivity extends AppCompatActivity {
                 String shortLink = "https://maps.google.com/?q=" + lat + "," + lng; // Short link can also be created via a URL shortening service
 
                 // Shortened message
-                message += " Help! At: " + shortLink + " " + "------ SHEild";
+                message += " Help! Location: " + shortLink;
             } else {
                 message += " Unable to retrieve location.";
             }
+            message += " | " + getDeviceContext() + " | SHEild";
             sendSmsToNumbers(message);
         });
+    }
+
+    private String getDeviceContext() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkCapabilities capabilities = connectivityManager == null
+                ? null : connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+        String network = "offline";
+        if (capabilities != null) {
+            if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                network = "Wi-Fi";
+            } else if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
+                network = "cellular";
+            } else {
+                network = "connected";
+            }
+        }
+
+        SensorManager sensors = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        boolean motion = sensors != null && sensors.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null;
+        boolean magnetic = sensors != null && sensors.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD) != null;
+        return "Network: " + network + ", sensors: motion=" + motion + ", magnetic=" + magnetic;
     }
 
     private void sendSmsToNumbers(String message) {
@@ -423,9 +501,14 @@ public class SmsActivity extends AppCompatActivity {
 
         for (String phoneNumber : phoneNumbers) {
             if (!phoneNumber.isEmpty()) {
-                SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                Toast.makeText(SmsActivity.this, "Message sent to " + phoneNumber, Toast.LENGTH_SHORT).show();
+                try {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    ArrayList<String> parts = smsManager.divideMessage(message);
+                    smsManager.sendMultipartTextMessage(phoneNumber, null, parts, null, null);
+                    Toast.makeText(SmsActivity.this, "Message sent to " + phoneNumber, Toast.LENGTH_SHORT).show();
+                } catch (RuntimeException error) {
+                    Toast.makeText(this, "Could not send SMS to " + phoneNumber, Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
@@ -436,6 +519,13 @@ public class SmsActivity extends AppCompatActivity {
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             switch (requestCode) {
+                case SOS_PERMISSION_REQUEST_CODE:
+                    if (allPermissionsGranted(grantResults)) {
+                        activateSos();
+                    } else {
+                        Toast.makeText(this, "SOS needs location, SMS, phone, and microphone permissions", Toast.LENGTH_LONG).show();
+                    }
+                    break;
                 case 0: // SEND_SMS
                 case 1: // CALL_PHONE
                     tryIt(); // Retry sending SMS or making a call
@@ -457,6 +547,36 @@ public class SmsActivity extends AppCompatActivity {
                     break;
             }
         }
+    }
+
+    private boolean allPermissionsGranted(int[] grantResults) {
+        if (grantResults.length == 0) {
+            return false;
+        }
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mediaRecorder != null) {
+            if (isRecording) {
+                try {
+                    mediaRecorder.stop();
+                } catch (RuntimeException ignored) {
+                    // A very short recording may not contain enough data to stop cleanly.
+                }
+            }
+            mediaRecorder.release();
+            mediaRecorder = null;
+            isRecording = false;
+        }
+        stopAlarm();
+        super.onDestroy();
     }
 
 
