@@ -30,7 +30,8 @@ import com.project.womensafety.R;
 
 public class MainActivity1 extends AppCompatActivity {
 
-    private CardView siren, settings, currentLocation, news, aboutUs, therapy, fakecall, iotModule;
+    private View siren;
+    private CardView settings, currentLocation, news, aboutUs, therapy, fakecall, iotModule;
     private static final int PERMISSION_REQUEST_CODE = 100;
 
     @Override
