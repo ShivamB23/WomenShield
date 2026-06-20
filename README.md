@@ -1,161 +1,153 @@
-# SHEild: Women Safety App
+<div align="center">
 
-SHEild is an Android application designed to prioritize women’s safety by leveraging advanced features and IoT integration. The app provides real-time safety mechanisms, location tracking, and mental well-being support through a user-friendly interface.
+<img src="https://raw.githubusercontent.com/ABSphreak/ABSphreak/master/gifs/Hi.gif" width="60px" />
 
-## Features
+# 🛡️ SHEild: Intelligent Women Safety & IoT Tracker 🛡️
 
-### Core Functionalities:
-- **IoT Integration**: Connects to an IoT device to fetch real-time data and location.
-- **Location Tracking**: Provides the current location of the user for enhanced safety.
-- **Emergency SOS**: Sends immediate alerts and notifications in critical situations.
-- **Siren Alert**: Activates a loud siren to draw attention during emergencies.
-- **Hidden Camera Detection**: Identifies hidden cameras nearby to ensure privacy.
-- **Women News**: Access the latest news relevant to women's safety and empowerment.
-- **Therapy Section**:
-  - Offers various therapeutic services, including:
-    - Audio therapy
-    - Yoga sessions
-    - Self-help resources (videos, audios, books)
+### *Automated Distress Alerts | Hardware IoT Syncing | Hidden Camera Detector | Therapy Lounge*
 
-### User Management:
-- **Admin Panel**: Add and manage users efficiently.
-- **Login Feature**: Allows users to log in and access their real-time location and app features.
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=E5383B&center=true&vCenter=true&width=450&height=40&lines=Real-Time+GPS+Tracking;IoT+Hardware+Integration;One-Touch+Emergency+SOS;Hidden+Camera+Scanner;Therapy+%26+Mental+Support)](https://git.io/typing-svg)
 
-## How It Works
-1. **Setup**: Install the app and connect it with the IoT device.
-2. **Login**: Securely log in to access all functionalities.
-3. **Activate SHEild Button**: Use the SHEild button to access emergency features.
-4. **Real-Time Updates**: Get real-time location and data updates from the IoT device.
-
-## Technologies Used
-- **Android Studio**: For app development.
-- **IoT Device**: For real-time data collection and location tracking.
-- **Java/Kotlin**: Backend logic.
-- **Firebase/SQLite**: For user and data management (if applicable).
-
-## Installation
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/your-username/SHEild.git
-   ```
-2. Open the project in Android Studio.
-3. Build and run the application on your Android device or emulator.
-
-## Contribution
-Contributions are welcome! Please fork this repository and submit a pull request for any improvements or new features.
-
-## License
-This project is licensed under the [MIT License](LICENSE).
+<div style="margin: 15px 0;">
+  <img src="https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android" />
+  <img src="https://img.shields.io/badge/Language-Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
+  <img src="https://img.shields.io/badge/Build-Gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white" alt="Gradle" />
+  <img src="https://img.shields.io/badge/Location-Google--Services-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Services" />
+</div>
 
 ---
 
-<h1 align="center">Hi Coders <img src="https://raw.githubusercontent.com/ABSphreak/ABSphreak/master/gifs/Hi.gif" width="30px"></h1>
+**SHEild** is a premium Android application designed to secure and empower women. By integrating mobile geolocation APIs, hardware IoT interfaces, local privacy tools, and mental wellness resources, SHEild creates an active safety net for users in real-world scenarios.
 
-## Hey there 👋, I'm [<a href="https://adityakonda04.vercel.app/">Aditya!</a>](https://github.com/AdityaKonda6)
+</div>
+
+---
+
+## ⚡ Main Capabilities
+
+| Feature | Tech Stack / Components | Core Action |
+| :--- | :--- | :--- |
+| 🛰️ **IoT GPS Tracker** | `FusedLocationProviderClient` | Fetches high-accuracy device location coordinates rather than hardcoded mock data. |
+| 🚨 **Emergency SOS** | `SmsManager`, `Intent.ACTION_CALL` | Dispatches multi-recipient SMS distress messages with Google Maps links and auto-dials emergency contacts. |
+| 🔊 **Siren Alert** | `MediaPlayer` | Sounds a high-volume police siren loop to warn bystanders and deter active threats. |
+| 📷 **Cam Finder** | Device Sensors | Identifies potential hidden cameras in changing rooms and private spaces. |
+| 🧘 **Therapy Section** | Audio/Video modules | Access to audio therapy, guided yoga videos, and self-help book libraries. |
+
+---
+
+## 🛠️ Interactive Feature Deep-Dive
+
+<details>
+<summary><b>🛰️ Real-Time IoT GPS Syncing</b></summary>
+<br />
+SHEild queries Google Play Services Location APIs to pull real-time location. The app requests location permissions and updates current coordinates dynamically.
+<pre>
+fusedLocationProviderClient.getCurrentLocation(
+    Priority.PRIORITY_HIGH_ACCURACY, 
+    tokenSource.getToken()
+).addOnCompleteListener(task -> {
+    // Real coordinates mapped automatically
+});
+</pre>
+</details>
+
+<details>
+<summary><b>🚨 Triple-Alert SOS Dispatch</b></summary>
+<br />
+Triggering the primary SOS button triggers:
+1. **Loud Alarm**: Fires a continuous audio loop of a police siren.
+2. **Distress SMS**: Broadcasts a customizable warning message with coordinates to up to 4 trusted contacts.
+3. **Emergency Call**: Instantly dials the main contact number.
+</details>
+
+<details>
+<summary><b>🧘 Integrated Therapy Lounge</b></summary>
+<br />
+Designed for decompression and mental wellness:
+- **Audio Therapy**: Relaxing music and ambient loops.
+- **Yoga Routines**: Visual tutorials and home guides.
+- **Self-Help Hub**: Offline reading materials and self-paced guides.
+</details>
+
+---
+
+## 🚀 Setup & Installation
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/ShivamB23/WomenShield.git
+   ```
+2. **Open in Android Studio**:
+   - Let Gradle sync build resources and resolve dependencies.
+3. **Configure API Credentials**:
+   - Place your Google Services configuration and API keys inside `local.properties`.
+4. **Build & Run**:
+   - Run the `:app` configurations on a physical device or emulator.
+
+---
+
+## 👨‍💻 Developed By
+
+<div align="center">
+
+### **Hey there 👋, I'm Aditya!**
 
 [![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-0e76a8?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/aditya-adi-konda/)
 [![Twitter Badge](https://img.shields.io/badge/-Twitter-00acee?style=flat-square&logo=Twitter&logoColor=white)](https://twitter.com/AdityaKonda7)
 [![Instagram Badge](https://img.shields.io/badge/-Instagram-e4405f?style=flat-square&logo=Instagram&logoColor=white)](https://www.instagram.com/konda_aditya/)
-<img align="right" height="250" width="375" alt="" src="https://github.com/AdityaKonda6/AdityaKonda6/blob/main/giphy2.webp" />
 
-
-### Glad to see you here! &nbsp; ![](https://visitor-badge.glitch.me/badge?page_id=adityakonda.adityakonda&style=flat-square&color=0088cc)
+<img align="right" height="200" width="300" style="border-radius: 8px;" alt="Coding" src="https://raw.githubusercontent.com/iampavangandhi/iampavangandhi/master/gifs/coder.gif" />
 
 I’m a **2025 IT Graduate** passionate about **DevOps, Cloud, and Software Development** 🚀.  
-My mission? To **bridge the gap between development and operations**—building scalable systems, automating workflows, and ensuring quality from code to deployment.
+I love bridging the gap between development and operations—automating CI/CD workflows and deploying secure, scalable applications.
 
-With a strong foundation in **Java, SQL, Linux**, and hands-on experience with **CI/CD pipelines, Selenium automation, cloud services, and Android development**, I thrive in solving problems end-to-end—from writing code to deploying it in production.
+</div>
 
-Recently, at **CWD Limited**, I worked on:
-- **Automation Testing Frameworks** (Selenium, Java, Maven)
-- **Linux-based system configurations & debugging**
-- **Hardware-software integration testing**
-- API testing with Postman  
-…and in the process, strengthened my DevOps skill set.
+### 💼 Technical Toolkit
 
-💡 Curious mind. Fast learner. Always ready to build, break, and rebuild—better.
-
----
-
-### 🚀 What I’m Working On:
-- Building **DevOps projects** (Jenkins, Docker, Kubernetes, AWS, Ansible)
-- Enhancing **automation frameworks** for testing & deployment
-- Crafting **Android apps** and backend services
-- Expanding my **Linux administration** skills
+```
+Primary:     Java | SQL | Linux | Git | Python
+Frameworks:  Maven | Selenium Automation | Android Studio SDK
+DevOps:      Docker | Kubernetes | AWS Cloud | Jenkins CI-CD
+```
 
 ---
 
-### 💼 My Tech Stack:
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/java/java.png" alt="Java"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/linux/linux.png" alt="Linux"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/docker/docker.png" alt="Docker"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/kubernetes/kubernetes.png" alt="Kubernetes"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/aws/aws.png" alt="AWS"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/python/python.png" alt="Python"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/javascript/javascript.png" alt="JavaScript"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/react/react.png" alt="React"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/sql/sql.png" alt="SQL"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/master/topics/git/git.png" alt="Git"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" alt="nodejs"></code>
-<code><img height="27" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSTTzPAw-55ssm1Im594xYZ9eRQu2JylrkYLg&usqp=CAU" alt="mongodb"></code>
-<code><img height="27" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/terminal/terminal.png" alt="terminal"></code>
-
----
-
-<img align="right" height="250" width="375" alt="" src="https://raw.githubusercontent.com/iampavangandhi/iampavangandhi/master/gifs/coder.gif" />
-
-### 📌 Highlights:
-- 🛠 Built **dynamic Selenium automation scripts** integrated with Maven
-- 🚀 Created & deployed **full-stack and Android applications**
-- 🐧 Comfortable with **Linux system administration & shell scripting**
-- 📦 Implemented CI/CD workflows for smoother deployments
-- ☁️ Learning & applying **cloud infrastructure concepts**
-
---
-
-### 📫 How to Reach Me:
-- Email: **adityakonda04@gmail.com**
-- Portfolio: [adityakonda04.vercel.app](https://adityakonda04.vercel.app/)
-- LinkedIn: [Aditya Adi Konda](https://www.linkedin.com/in/aditya-adi-konda/)
-
----
-
-### 📊 GitHub Stats:
-<details>
-  <summary><b>⚡ GitHub Stats</b></summary>
-  <br />
-  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=adityakonda6&show_icons=true&hide_border=true&&count_private=true&include_all_commits=true" />
-  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=adityakonda6&show_icons=true&hide_border=true&layout=compact&langs_count=8"/>
-</details>
-
-<details>
-  <summary><b>🔥 GitHub Streaks</b></summary>
-  <br />
-  <img height="180em" src="https://github-readme-streak-stats.herokuapp.com/?user=adityakonda6&hide_border=true" />
-</details>
-
-<details>
-  <summary><b>☄️ LeetCode Stats</b></summary>
-  <br />
-   <p align="center"><img align="center" src="https://leetcard.jacoblin.cool/adityakonda04?theme=wtf&font=Coda%20Caption&ext=heatmap" /></p>
-</details>
-
----
-
-💬 Always open to collaborations, tech discussions, and exploring new opportunities in **DevOps, Cloud, and Software Development**.
-
-
-Like My Work?
-
-<a href="https://www.buymeacoffee.com/adityakonda04" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60px" width="217px" ></a>
-
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=AdityaKonda6&label=Profile%20views&color=0e75b6&style=flat" alt="AdityaKonda6" /> </p>
-
-<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=AdityaKonda6" alt="AdityaKonda6" /></a> </p>
-
+### 📊 Real-Time GitHub Performance
 
 <div align="center">
 
-### Show some ❤️ by starring some of the repositories!
-### <a href="https://adityakonda04.vercel.app/">My Portfolio</a>
+<details open>
+  <summary><b>⚡ Developer Stats</b></summary>
+  <br />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api?username=adityakonda6&show_icons=true&hide_border=true&count_private=true&include_all_commits=true&theme=tokyonight" alt="Aditya's GitHub Stats" />
+  <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=adityakonda6&show_icons=true&hide_border=true&layout=compact&langs_count=8&theme=tokyonight" alt="Top Languages" />
+</details>
+
+<br />
+
+<details open>
+  <summary><b>🔥 Activity Streaks</b></summary>
+  <br />
+  <img height="180em" src="https://github-readme-streak-stats.herokuapp.com/?user=adityakonda6&hide_border=true&theme=tokyonight" alt="GitHub Streaks" />
+</details>
+
+<br />
+
+<details>
+  <summary><b>☄️ LeetCode Rating</b></summary>
+  <br />
+  <img src="https://leetcard.jacoblin.cool/adityakonda04?theme=tokyonight&font=Coda%20Caption&ext=heatmap" alt="LeetCode Dashboard" />
+</details>
+
+</div>
+
+---
+
+<div align="center">
+
+💬 Always open to collaborations, DevOps projects, and automation challenges. Feel free to reach out via **adityakonda04@gmail.com** or check out my [Portfolio Website](https://adityakonda04.vercel.app/).
+
+⭐️ *Show some support by starring this repository if you find it helpful!* ⭐️
+
 </div>
