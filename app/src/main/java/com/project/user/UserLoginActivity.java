@@ -188,25 +188,11 @@ public class UserLoginActivity extends AppCompatActivity {
                         finish();
                     } else {
                         btnULogin.setEnabled(true);
-                        Toast.makeText(UserLoginActivity.this, "Invalid Password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserLoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    // Fallback: Automatically create a mock user session for testing convenience
-                    SharedPreference.save("u_id", "2");
-                    SharedPreference.save("u_name", "Mock User");
-                    SharedPreference.save("u_email", "mockuser@example.com");
-                    SharedPreference.save("u_phone", uPhone);
-                    SharedPreference.save("u_password", uPassword);
-                    SharedPreference.save("u_address", "123 Main St, New Delhi");
-                    SharedPreference.save("u_relative_one", "9876543210");
-                    SharedPreference.save("u_relative_two", "8765432109");
-                    SharedPreference.save("u_relative_three", "7654321098");
-
-                    Toast.makeText(getApplicationContext(), "Login Successful (Default Mock Profile)", Toast.LENGTH_SHORT).show();
-
-                    Intent i = new Intent(UserLoginActivity.this, UserDashboardActivity.class);
-                    startActivity(i);
-                    finish();
+                    btnULogin.setEnabled(true);
+                    Toast.makeText(UserLoginActivity.this, "User not registered. Please register from Admin panel first.", Toast.LENGTH_LONG).show();
                 }
             }
         }, 1000);

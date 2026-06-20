@@ -77,17 +77,23 @@ public class AdminLoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 pBar.setVisibility(View.GONE);
-                SharedPreference.save("a_id", "1");
-                SharedPreference.save("a_name", "Admin");
-                SharedPreference.save("a_email", aEmail);
-                SharedPreference.save("a_phone", "1234567890");
-                SharedPreference.save("a_password", aPass);
+                
+                if ("admin@sheild.com".equalsIgnoreCase(aEmail) && "admin123".equals(aPass)) {
+                    SharedPreference.save("a_id", "1");
+                    SharedPreference.save("a_name", "Admin");
+                    SharedPreference.save("a_email", aEmail);
+                    SharedPreference.save("a_phone", "1234567890");
+                    SharedPreference.save("a_password", aPass);
 
-                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
 
-                Intent i = new Intent(AdminLoginActivity.this, AddUserActivity.class);
-                startActivity(i);
-                finish();
+                    Intent i = new Intent(AdminLoginActivity.this, AddUserActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    btnALogin.setEnabled(true);
+                    Toast.makeText(AdminLoginActivity.this, "Invalid Admin Credentials", Toast.LENGTH_SHORT).show();
+                }
             }
         }, 1000);
     }
