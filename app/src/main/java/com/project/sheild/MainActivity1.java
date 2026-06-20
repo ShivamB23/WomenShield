@@ -30,7 +30,7 @@ import com.project.womensafety.R;
 
 public class MainActivity1 extends AppCompatActivity {
 
-    private CardView siren, settings, currentLocation, news, aboutUs, therapy, fakecall;
+    private CardView siren, settings, currentLocation, news, aboutUs, therapy, fakecall, iotModule;
     private static final int PERMISSION_REQUEST_CODE = 100;
 
     @Override
@@ -74,6 +74,7 @@ public class MainActivity1 extends AppCompatActivity {
         aboutUs = findViewById(R.id.about_us);
         therapy = findViewById(R.id.therapy);
         fakecall = findViewById(R.id.fakecall);
+        iotModule = findViewById(R.id.iot_module);
 
 //        backButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -93,6 +94,7 @@ public class MainActivity1 extends AppCompatActivity {
         aboutUs.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), AboutUs.class)));
         therapy.setOnClickListener(v -> startActivity(new Intent(MainActivity1.this, SukoonWebViewActivity.class)));
         fakecall.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), FakeCall.class)));
+        iotModule.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), IoTDeviceActivity.class)));
 
     }
 

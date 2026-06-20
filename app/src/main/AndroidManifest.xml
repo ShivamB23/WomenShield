@@ -199,20 +199,12 @@
             android:name="com.project.sheild.Flashing"
             android:exported="false" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         <activity
+            android:name="com.project.sheild.IoTDeviceActivity"
+            android:exported="false"
+            android:label="IoT Tracker"
+            android:parentActivityName="com.project.sheild.MainActivity1"
+            android:theme="@style/Theme.New" />        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/noActionBar"/>
