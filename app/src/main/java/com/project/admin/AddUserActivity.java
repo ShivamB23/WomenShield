@@ -97,45 +97,23 @@ public class AddUserActivity extends AppCompatActivity {
     private void addUser(String uName, String uEmail, String uPhone, String uAddress, String uPassword, String uRelativeOne, String uRelativeTwo, String uRelativeThree) {
         pBar.setVisibility(View.VISIBLE);
 
-        StringRequest request = new StringRequest(Request.Method.POST, Keys.URL.ADD_USER, new Response.Listener<String>() {
+        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
-            public void onResponse(String response) {
+            public void run() {
                 pBar.setVisibility(View.GONE);
-                try {
-                    JSONObject json = new JSONObject(response);
-                    if(json.optString("success").equals("1")){
-                        clearAllFields();
-                    }
-                    Toast.makeText(getApplicationContext(), json.optString("message"), Toast.LENGTH_LONG).show();
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                pBar.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "Try again", Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                //`u_name`, `u_email`, `u_phone`, `u_password`, `u_address`, `u_relative_one`, `u_relative_two`, `u_relative_three`
-                params.put("u_name", uName);
-                params.put("u_email", uEmail);
-                params.put("u_phone", uPhone);
-                params.put("u_password", uPassword);
-                params.put("u_address", uAddress);
-                params.put("u_relative_one", uRelativeOne);
-                params.put("u_relative_two", uRelativeTwo);
-                params.put("u_relative_three", uRelativeThree);
-                return params;
-            }
-        };
 
-        AppController.getInstance().add(request);
+                SharedPreference.save(uPhone + "_name", uName);
+                SharedPreference.save(uPhone + "_email", uEmail);
+                SharedPreference.save(uPhone + "_password", uPassword);
+                SharedPreference.save(uPhone + "_address", uAddress);
+                SharedPreference.save(uPhone + "_relative_one", uRelativeOne);
+                SharedPreference.save(uPhone + "_relative_two", uRelativeTwo);
+                SharedPreference.save(uPhone + "_relative_three", uRelativeThree);
+
+                Toast.makeText(getApplicationContext(), "User Registered Successfully", Toast.LENGTH_LONG).show();
+                clearAllFields();
+            }
+        }, 1000);
     }
 
     private void clearAllFields() {

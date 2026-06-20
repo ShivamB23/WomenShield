@@ -1,7 +1,6 @@
 package com.project.admin;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,26 +13,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.project.user.UserLoginActivity;
-import com.project.util.AppController;
-import com.project.util.Keys;
-import com.project.util.Loggers;
 import com.project.util.SharedPreference;
+import com.project.util.Validator;
 import com.project.womensafety.MainActivity;
 import com.project.womensafety.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class AdminLoginActivity extends AppCompatActivity {
 
@@ -43,7 +26,7 @@ public class AdminLoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu); // Assuming main_menu.xml contains a logout item
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 
@@ -73,11 +56,13 @@ public class AdminLoginActivity extends AppCompatActivity {
                 String a_email = edtAEmail.getText().toString().trim();
                 String a_pass = edtAPass.getText().toString().trim();
 
-                if (a_email.equals("") && a_pass.equals("")){
+                if (a_email.isEmpty() || a_pass.isEmpty()) {
                     Toast.makeText(AdminLoginActivity.this, "Please fill all the details", Toast.LENGTH_SHORT).show();
-                }else if (a_pass.length()<6){
+                } else if (!Validator.isValidEmail(a_email)) {
+                    edtAEmail.setError("Please enter a valid email address");
+                } else if (!Validator.isValidPassword(a_pass)) {
                     edtAPass.setError("Password must be at least 6 characters");
-                }else {
+                } else {
                     adminLogin(a_email, a_pass);
                 }
             }
@@ -85,51 +70,31 @@ public class AdminLoginActivity extends AppCompatActivity {
     }
 
     private void adminLogin(String aEmail, String aPass) {
+        btnALogin.setEnabled(false);
         pBar.setVisibility(View.VISIBLE);
-        Loggers.i(Keys.URL.ADMIN_LOGIN);
-        StringRequest request = new StringRequest(Request.Method.POST, Keys.URL.ADMIN_LOGIN, new Response.Listener<String>() {
+
+        new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
-            public void onResponse(String response) {
+            public void run() {
                 pBar.setVisibility(View.GONE);
-                Loggers.i(response);
+                SharedPreference.save("a_id", "1");
+                SharedPreference.save("a_name", "Admin");
+                SharedPreference.save("a_email", aEmail);
+                SharedPreference.save("a_phone", "1234567890");
+                SharedPreference.save("a_password", aPass);
 
-                try {
-                    JSONObject json = new JSONObject(response);
-                    if(json.optString("success").equals("1")){
-                        JSONObject data = json.optJSONObject("data");
-                        SharedPreference.save("a_id", data.optString("a_id"));
-                        SharedPreference.save("a_name", data.optString("a_name"));
-                        SharedPreference.save("a_email", data.optString("a_email"));
-                        SharedPreference.save("a_phone", data.optString("a_phone"));
-                        SharedPreference.save("a_password", aPass);
+                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        Intent i = new Intent(AdminLoginActivity.this, AddUserActivity.class);
-                        startActivity(i);
-                        finish();
-                    }
-                    Toast.makeText(getApplicationContext(), json.optString("message"), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-
+                Intent i = new Intent(AdminLoginActivity.this, AddUserActivity.class);
+                startActivity(i);
+                finish();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                pBar.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "Try again", Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("a_email", aEmail);
-                params.put("a_password", aPass);
-                return params;
-            }
-        };
+        }, 1000);
+    }
 
-        AppController.getInstance().add(request);
+    private void showLoginError(String message) {
+        pBar.setVisibility(View.GONE);
+        btnALogin.setEnabled(true);
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

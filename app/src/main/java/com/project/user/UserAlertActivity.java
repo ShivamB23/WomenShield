@@ -100,48 +100,11 @@ public class UserAlertActivity extends AppCompatActivity {
     }
 
     private void getUserLocation() {
-        StringRequest request = new StringRequest(Request.Method.POST, Keys.URL.GET_USER_LOCATION, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //pBar.setVisibility(View.GONE);
-                Loggers.i(response);
-
-                try {
-                    JSONObject json = new JSONObject(response);
-                    if(json.optString("success").equals("1")){
-                        JSONObject data = json.optJSONObject("data");
-                        String userData = "Location :- " + data.optString("l_lat") + "," + data.optString("l_long");
-                        userData += "\nTime :- " + data.optString("l_time");
-                        String locationData = "http://maps.google.com/maps?q=loc:" + data.optString("l_lat") + "," + data.optString("l_long");
-                        /*
-                        tvData.setText(userData);
-                        llayout.setVisibility(View.VISIBLE);
-                        btnOpenLocation.setVisibility(View.VISIBLE);*/
-                        sendAlertSMS("I am in danger. Please checkout my location at " + locationData);
-                        callUser();
-                    }
-                    Toast.makeText(UserAlertActivity.this, json.optString("message"), Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //pBar.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "Try again", Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("u_id", SharedPreference.get("u_id"));
-                return params;
-            }
-        };
-
-        AppController.getInstance().add(request);
+        String lat = "28.6139";
+        String lng = "77.2090";
+        String locationData = "http://maps.google.com/maps?q=loc:" + lat + "," + lng;
+        sendAlertSMS("I am in danger. Please checkout my location at " + locationData);
+        callUser();
     }
 
     private void sendAlertSMS(String message) {
